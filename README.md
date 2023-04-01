@@ -1,28 +1,14 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask&demo-title=Flask%20%2B%20Vercel&demo-description=Use%20Flask%202%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+### manny
+manifold doc embeddings + gpt + q&a bot.
 
-# Flask + Vercel
+example
+```sh
+curl -s https://askmanny.fly.dev/question \
+-H 'content-type: application/json' \
+-d '{ "query": "why isnt my token loading?" }' \
+> | python -m json.tool
+{
+    "answer": "### Question: \n  why isnt my token loading?\n  ### Answer: \n  It could be due to various reasons depending on the platform you are trying to load the token on. If your token isn't showing up on Opensea, it might take a few hours for Opensea to ingest the token data. If it's still not showing up, you can contact Opensea's support team. If your token isn't loading on Foundation, please make sure that the file size/type is correct as Foundation only displays images/videos under 50mb. Additionally, if the issue is with the token displaying on all platforms, there may have been an issue during the minting process. You can try double-checking metadata and compatibility, and if the issue persists, you can contact the platform's support team for assistance. \n  ### Sources: \n  https://docs.manifold.xyz/v/manifold-studio/essentials/solve-platform-display-issues, https://docs.manifold.xyz/v/manifold-studio/essentials/faq\n  ### All relevant sources:\n  https://docs.manifold.xyz/v/manifold-studio/essentials/faq https://docs.manifold.xyz/v/manifold-studio/essentials/solve-platform-display-issues\n  "
+}
 
-This example shows how to use Flask 2 on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
-
-## Demo
-
-https://flask-python-template.vercel.app/
-
-## How it Works
-
-This example uses the Web Server Gateway Interface (WSGI) with Flask to enable handling requests on Vercel with Serverless Functions.
-
-## Running Locally
-
-```bash
-npm i -g vercel
-vercel dev
-```
-
-Your Flask application is now available at `http://localhost:3000`.
-
-## One-Click Deploy
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fflask&demo-title=Flask%20%2B%20Vercel&demo-description=Use%20Flask%202%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fflask-python-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994156/random/flask.png)
+`flyctl deploy`
