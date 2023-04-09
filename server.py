@@ -44,25 +44,27 @@ def question():
 
 @app.route("/webhook", methods=["POST"])
 def discourse_webhook():
-    payload = request.get_json(force=True)
-    if payload["event_type"] == "topic_created":
-        topic_id = payload["topic"]["id"]
-        title = payload["topic"]["title"]
-        content = payload["post"]["cooked"]
+    payload = request.json
 
-        # Remove HTML tags from the content
-        content = re.sub(r'<[^>]*>', '', content)
+    topic_id = payload["topic"]["id"]
+    title = payload["topic"]["title"]
 
-        # Concatenate the title and content
-        question = f"{title}\n{content}"
+    response = requests.get(f"https://forum.manifold.xyz/t/{topic_id}.json")
+    data = response.json()
+    content = data["post_stream"]["posts"][0]["cooked"]
 
-        # Remove any unsupported characters (retain ASCII characters and some common Unicode characters)
-        question = re.sub(r'[^\x00-\x7F\u0080-\uFFFF]', '', question)
+    # Remove HTML tags from the content
+    content = re.sub(r'<[^>]*>', '', content)
 
-        answer = ask(question)
-        create_post(topic_id, {'question': question, 'answer': answer})
-        return jsonify({"status": "success"}), 200
-    return jsonify({"status": "ignored"}), 200
+    # Concatenate the title and content
+    question = f"{title}\n{content}"
+
+    # Remove any unsupported characters (retain ASCII characters and some common Unicode characters)
+    question = re.sub(r'[^\x00-\x7F\u0080-\uFFFF]', '', question)
+
+    answer = ask(question)
+    create_post(topic_id, {'question': question, 'answer': answer})
+    return jsonify({"status": "success"}), 200
 
 
 @app.route('/generate-store', methods=['POST'])
@@ -132,7 +134,7 @@ def create_post(topic_id, content):
     }
     data = {
         "topic_id": 3632,  # topic_id,
-        "raw": json.dumps(content, 2),
+        "raw": json.dumps(content, indent=2),
     }
 
     response = requests.post(url, headers=headers, json=data)
